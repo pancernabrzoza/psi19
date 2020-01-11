@@ -3,23 +3,9 @@ from django.db import models
 
 class Film(models.Model):
     nazwa = models.CharField(max_length=50)
-    autor = models.CharField(max_length=20)
+    rezyser = models.CharField(max_length=20)
     cena = models.IntegerField()
     data_premiery = models.DateField()
-
-    def __str__(self):
-        return self.cena + ", " + self.nazwa
-
-
-class Zamowienie(models.Model):
-    film = models.CharField(max_length=50)
-    klient = models.CharField(max_length=200)
-    ilosc = models.IntegerField()
-    data_zwrotu = models.DateField()
-    data_wypozyczenia = models.DateField()
-
-    def __str__(self):
-        return self.klient + ", " + self.film + ", " + self.data_zwrotu
 
 
 class Klient(models.Model):
@@ -30,15 +16,10 @@ class Klient(models.Model):
     nr_telefonu = models.IntegerField()
     adress= models.CharField(max_length=200)
 
-    def __str__(self):
-        return self.imie + ", " + self.nazwisko + ", " + self.nr_telefonu
-
 
 class Magazyn(models.Model):
     nazwa_filmu = models.CharField(max_length=50)
     ilosc = models.IntegerField()
-    def __str__(self):
-        return self.nazwa_filmu + ", " + self.ilosc
 
 
 class Pracownicy(models.Model):
@@ -51,7 +32,12 @@ class Pracownicy(models.Model):
     stanowisko = models.CharField(max_length=200)
     wyplata = models.FloatField()
 
-    def __str__(self):
-        return self.imie + ", " + self.nazwisko + ", " + self.stanowisko
+
+class Zamowienie(models.Model):
+    film = models.ForeignKey(Film, on_delete=models.CASCADE)
+    klient = models.ForeignKey(Klient, on_delete=models.CASCADE)
+    ilosc = models.IntegerField()
+    data_zwrotu = models.DateField()
+    data_wypozyczenia = models.DateField()
 
 # Create your models here.

@@ -14,6 +14,7 @@ urlpatterns = {
     path('magazyn/', views.MagazynList.as_view()),
 
     path('pracownicy/', views.PracownicyList.as_view()),
+
 }
 
 urlpatterns=format_suffix_patterns(urlpatterns)
