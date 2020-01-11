@@ -8,9 +8,6 @@ from rest_framework import generics
 
 # Create your views here.
 
-def index(request):
-    return HttpResponse("Hello World")
-
 
 class FilmList(generics.ListCreateAPIView):
     queryset = Film.objects.all()
