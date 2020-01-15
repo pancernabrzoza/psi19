@@ -6,6 +6,9 @@ class Film(models.Model):
     rezyser = models.CharField(max_length=20)
     cena = models.IntegerField()
     data_premiery = models.DateField()
+    owner = models.ForeignKey('auth.User', related_name='films', on_delete=models.CASCADE)
+    def __str__(self):
+        return self.nazwa
 
 
 class Klient(models.Model):
@@ -15,11 +18,17 @@ class Klient(models.Model):
     znizka = models.IntegerField()
     nr_telefonu = models.IntegerField()
     adress= models.CharField(max_length=200)
+    owner = models.ForeignKey('auth.User', related_name='klients', on_delete=models.CASCADE)
+    def __str__(self):
+        return self.pesel
 
 
 class Magazyn(models.Model):
-    nazwa_filmu = models.CharField(max_length=50)
+    nazwa_filmu = models.ForeignKey(Film, on_delete=models.CASCADE)
     ilosc = models.IntegerField()
+    owner = models.ForeignKey('auth.User', related_name='magazyns', on_delete=models.CASCADE)
+    def __str__(self):
+        return self.nazwa_filmu
 
 
 class Pracownicy(models.Model):
@@ -31,6 +40,9 @@ class Pracownicy(models.Model):
     adress = models.CharField(max_length=200)
     stanowisko = models.CharField(max_length=200)
     wyplata = models.FloatField()
+    owner = models.ForeignKey('auth.User', related_name='pracownicys', on_delete=models.CASCADE)
+    def __str__(self):
+       return self.imie
 
 
 class Zamowienie(models.Model):
@@ -39,5 +51,8 @@ class Zamowienie(models.Model):
     ilosc = models.IntegerField()
     data_zwrotu = models.DateField()
     data_wypozyczenia = models.DateField()
+    owner = models.ForeignKey('auth.User', related_name='zamowienies', on_delete=models.CASCADE)
+    def __str__(self):
+        return self.film
 
 # Create your models here.

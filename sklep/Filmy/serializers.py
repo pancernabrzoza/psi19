@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Film, Zamowienie, Klient, Magazyn, Pracownicy
+from .models import *
 
 
 class FilmSerializer(serializers.ModelSerializer):
@@ -20,6 +20,7 @@ class FilmSerializer(serializers.ModelSerializer):
         instance.autor = validated_data.get('autor', instance.autor)
         instance.cena = validated_data.get('cena', instance.cena)
         instance.data_premiery = validated_data.get('data_premiery', instance.data_premiery)
+        instance.owner = validated_data.get('owner', instance.owner)
         instance.save()
         return instance
 
@@ -44,6 +45,7 @@ class ZamowienieSerializer(serializers.ModelSerializer):
         instance.ilosc = validated_data.get('ilosc', instance.ilosc)
         instance.data_zwrotu = validated_data.get('data_zwrotu', instance.data_zwrotu)
         instance.data_wypozyczenia = validated_data.get('data_wypozyczenia', instance.data_wypozyczenia)
+        instance.owner = validated_data.get('owner', instance.owner)
         instance.save()
         return instance
 
@@ -70,6 +72,7 @@ class KlientSerializer(serializers.ModelSerializer):
         instance.znizka = validated_data.get('znizka', instance.znizka)
         instance.nr_telefonu = validated_data.get('nr_telefonu', instance.nr_telefonu)
         instance.adress = validated_data.get('adress', instance.adress)
+        instance.owner = validated_data.get('owner', instance.owner)
         instance.save()
         return instance
 
@@ -88,6 +91,7 @@ class MagazynSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance.nazwa_filmu = validated_data.get('nazwa_filmu', instance.nazwa_filmu)
         instance.ilosc = validated_data.get('ilosc', instance.ilosc)
+        instance.owner = validated_data.get('owner', instance.owner)
         instance.save()
         return instance
 
@@ -118,5 +122,6 @@ class PracownicySerializer(serializers.ModelSerializer):
         instance.adress = validated_data.get('adress', instance.adress)
         instance.stanowisko = validated_data.get('stanowisko', instance.stanowisko)
         instance.wyplata = validated_data.get('wyplata', instance.wyplata)
+        instance.owner = validated_data.get('owner', instance.owner)
         instance.save()
         return instance
